@@ -147,7 +147,7 @@ Resources:
       ContainerDefinitions:
         - Name: memory3-container
           Essential: true
-          Image: 626635425934.dkr.ecr.us-west-2.amazonaws.com/memory3:latest
+          Image: 677276083056.dkr.ecr.us-east-1.amazonaws.com/memory3:latest
           PortMappings:
             - ContainerPort: 8080
           LogConfiguration:
