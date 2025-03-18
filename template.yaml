@@ -149,7 +149,7 @@ Resources:
           Essential: true
           Image: 677276083056.dkr.ecr.us-east-1.amazonaws.com/memory3:latest
           PortMappings:
-            - ContainerPort: 5000
+            - ContainerPort: 8080
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -171,12 +171,12 @@ Resources:
           ToPort: 443
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: 5000
-          ToPort: 5000
+          FromPort: 8080
+          ToPort: 8080
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: 5001
-          ToPort: 5001
+          FromPort: 8081
+          ToPort: 8081
           CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
         - IpProtocol: -1
@@ -188,8 +188,8 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 5000
-          ToPort: 5000
+          FromPort: 8080
+          ToPort: 8080
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
       SecurityGroupEgress:
         - IpProtocol: -1
@@ -211,7 +211,7 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       Name: memory3-blue-target
-      Port: 5000
+      Port: 8080
       Protocol: HTTP
       VpcId: !Ref VPC
       TargetType: ip
@@ -226,7 +226,7 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       Name: memory3-green-target
-      Port: 5000
+      Port: 8080
       Protocol: HTTP
       VpcId: !Ref VPC
       TargetType: ip
@@ -244,7 +244,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref GreenTargetGroup
       LoadBalancerArn: !Ref Memory3LoadBalancer
-      Port: 5001
+      Port: 8081
       Protocol: HTTP
   # Production listener (initially points to blue environment)
   ProductionListener:
@@ -278,7 +278,7 @@ Resources:
       LoadBalancers:
         - TargetGroupArn: !Ref BlueTargetGroup
           ContainerName: memory3-container
-          ContainerPort: 5000
+          ContainerPort: 8080
       PropagateTags: SERVICE
       EnableECSManagedTags: true
       DeploymentController:
