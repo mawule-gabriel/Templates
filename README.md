@@ -24,7 +24,7 @@ This CloudFormation template creates a comprehensive AWS infrastructure for a co
 
 - ECS Cluster with Fargate launch type
 - Auto-scaling configuration based on CPU utilization
-- Container runs on port `3000`
+- Container runs on port `8080`
 
 ### Load Balancing
 
